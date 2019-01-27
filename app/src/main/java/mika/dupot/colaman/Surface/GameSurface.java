@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 
 import mika.dupot.colaman.Domain.GamePlay;
+import mika.dupot.colaman.GameActivity;
 import mika.dupot.colaman.R;
 import mika.dupot.colaman.Socket.MyWebSocketClient;
 import mika.dupot.colaman.threads.GameThread;
@@ -70,7 +71,8 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback ,
 
     private Case oCase;
 
-    private static ArrayList<Point> tDrawWall = new ArrayList<Point>();
+    //private static ArrayList<Point> tDrawWall = new ArrayList<Point>();
+    private static HashMap<String,Point> tDrawWall = new HashMap<String,Point>();
     private static HashMap<String,Point> tDraWallBreakable = new HashMap<String,Point>();
     private static HashMap<String, Point> tDrawUser = new HashMap<String, Point>();
 
@@ -88,6 +90,8 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback ,
 
     public static float scaledDensity;
     private Surface sf;
+
+    public GameActivity oGameActivity;
 
 
     public GameSurface(Context context) {
@@ -233,28 +237,46 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback ,
         }
     }
 
-
-
-
     public void initMap(Canvas oCanvas_) {
 
-        for(int i=1;i<16;i++){
-            for(int j=1;j<10;j++){
-                oCase.drawCoord(oCanvas_,j,i);
+        for(int y=0;y<=16;y++){
+            for(int x=0;x<=10;x++){
+
+                oCase.drawCoord(oCanvas_, x, y);
+                String sCoordKey=x+"_"+y;
+
+                if(tDrawWall.containsKey(sCoordKey)){
+                    oWall.drawCoord(oCanvas_,tDrawWall.get(sCoordKey).x,tDrawWall.get(sCoordKey).y);
+                }
+                if(tDraWallBreakable.containsKey(sCoordKey)){
+                    oWallBreakable.drawCoord(oCanvas_,tDraWallBreakable.get(sCoordKey).x,tDraWallBreakable.get(sCoordKey).y);
+                }
+
+
             }
         }
 
-        for (int i = 0; i < tDrawWall.size(); i++) {
-            oWall.drawCoord(oCanvas_, tDrawWall.get(i).x, tDrawWall.get(i).y);
-        }
 
-
-        for(Point oLoopWallBreakable : tDraWallBreakable.values()){
-            oWallBreakable.drawCoord(oCanvas_, oLoopWallBreakable.x, oLoopWallBreakable.y);
-        }
 
         return;
 
+
+    }
+
+    public void resetGame(){
+        isAlive=true;
+        isGameEnded=false;
+
+        tDraWallBreakable.clear();
+        tDrawUser.clear();
+        tDrawWall.clear();
+
+        tFlame.clear();
+        tBomb.clear();
+
+        for (int i = 0; i < tPlayer.length; i++) {
+            tPlayer[i].relive();
+        }
 
     }
 
@@ -278,7 +300,7 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback ,
 
             if (actionMessage.equals(GamePlay.ACTION_DRAWWALL)) {
 
-                tDrawWall.add(oPoint);
+                tDrawWall.put(Integer.toString(oPoint.x)+"_"+Integer.toString(oPoint.y),oPoint);
             } else if (actionMessage.equals(GamePlay.ACTION_DRAWWALLBREAKABLE)) {
 
                 tDraWallBreakable.put(Integer.toString(oPoint.x)+"_"+Integer.toString(oPoint.y),oPoint);
@@ -347,24 +369,15 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback ,
             }
             isAlive = false;
 
+
+
+            GameSurface .oInstance.oGameActivity.goGameOver();
+
         }else if(actionMessage.equals(GamePlay.ACTION_RESTARTGAME)) {
 
             Log.i("GameSurface","ACTION_RESTARTGAME");
 
-            isAlive=true;
-            isGameEnded=false;
-
-            tDraWallBreakable.clear();
-            tDrawUser.clear();
-            tDrawWall.clear();
-
-            tFlame.clear();
-            tBomb.clear();
-
-            for (int i = 0; i < tPlayer.length; i++) {
-                tPlayer[i].relive();
-            }
-
+            //resetGame();
 
         }else if(actionMessage.equals(GamePlay.ACTION_GAMEENDED)){
 
@@ -374,6 +387,8 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback ,
             if(oMessage_.get(GamePlay.FIELD_USER).equals(currentUser)){
                 Log.i("GameSurface", "not "+oMessage_.get(GamePlay.FIELD_USER)+" = currentUser "+currentUser);
                 isGameEnded=true;
+
+                GameSurface .oInstance.oGameActivity.goGameOverServer();
             }
 
         }
@@ -550,10 +565,12 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback ,
 
 
         this.oWall = new Wall(this, wallbitmap, getWidth(), scaledDensity);
+        this.oWall.setImage(wallbitmap);
 
         Bitmap wallBitmapBreakable = BitmapFactory.decodeResource(this.getResources(), R.drawable.wallbreakable);
 
         this.oWallBreakable = new Wall(this, wallBitmapBreakable, getWidth(), scaledDensity);
+        this.oWallBreakable.setImage(wallBitmapBreakable);
 
         Bitmap caseBitmapBreakable = BitmapFactory.decodeResource(this.getResources(), R.drawable.back);
 

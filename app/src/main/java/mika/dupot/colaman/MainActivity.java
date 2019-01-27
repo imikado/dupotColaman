@@ -7,6 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.IOException;
+
+import mika.dupot.colaman.Socket.MyWebSocketServer;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -19,6 +23,16 @@ public class MainActivity extends AppCompatActivity {
         TextView oText = findViewById(R.id.textView);
 
         oText.setText(  versionCode);
+
+        try {
+            if(MyWebSocketServer.oInstance!=null) {
+                MyWebSocketServer.oInstance.stop();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void gotoServer(View v) {

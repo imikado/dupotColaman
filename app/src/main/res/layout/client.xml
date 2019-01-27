@@ -1,31 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/titleBackground">
 
     <Button
-            android:text="Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:layout_alignParentEnd="false"
-            android:layout_alignParentTop="true" android:id="@+id/btnConnect"
-            android:layout_marginTop="57dp" android:layout_marginEnd="0dp"/>
+        android:id="@+id/btnConnect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="false"
+        android:layout_marginTop="57dp"
+        android:layout_marginEnd="0dp"
+        android:text="Button" />
+
     <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:layout_alignParentStart="false"
-            android:layout_alignParentTop="true">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="true">
 
         <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="hint" android:id="@+id/inputIP"/>
-    </android.support.design.widget.TextInputLayout>
-    <EditText
+            android:id="@+id/inputIP"
             android:layout_width="match_parent"
-            android:layout_height="352dp"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/logText"
-            android:singleLine="false" android:layout_alignParentBottom="false"
-            android:gravity="top" android:layout_alignParentStart="false"
-            android:layout_marginStart="0dp" android:layout_marginTop="120dp"/>
+            android:layout_height="match_parent"
+            android:hint="hint" />
+    </android.support.design.widget.TextInputLayout>
+
+    <EditText
+        android:id="@+id/logText"
+        android:layout_width="match_parent"
+        android:layout_height="352dp"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentBottom="false"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="120dp"
+        android:ems="10"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:singleLine="false" />
 </RelativeLayout>

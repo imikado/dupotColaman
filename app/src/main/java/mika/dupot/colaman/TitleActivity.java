@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 public class TitleActivity extends AppCompatActivity {
-    private static int screenTimeOut=4000;
+    private static int screenTimeOut=3000;
 
 
     @Override

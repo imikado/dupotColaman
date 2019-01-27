@@ -14,7 +14,7 @@ public class ServerGameThread extends Thread {
     public void run()  {
 
         try{
-            this.sleep(1000);
+            this.sleep(700);
         } catch(InterruptedException e)  {
 
         }

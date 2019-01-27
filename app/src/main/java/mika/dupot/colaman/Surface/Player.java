@@ -91,7 +91,7 @@ public class Player extends GameObject {
     }
 
     public void setCoord(int x_, int y_) {
-        if(x_!=this.x || x_!=this.y) {
+        if(x_!=this.x || y_!=this.y) {
             this.updateCoord(x_,y_);
 
         }else {
@@ -107,6 +107,9 @@ public class Player extends GameObject {
 
         this.targetX=x_;
         this.targetY=y_;
+
+        Log.i("PlayerUpdateCoord","x:"+Integer.toString(x_));
+        Log.i("PlayerUpdateCoord","y:"+Integer.toString(y_));
 
         this.targetRealX = x_* this.caseWidth;
         this.targetRealY = y_*this.caseWidth - (this.caseWidth/2);
@@ -169,7 +172,14 @@ public class Player extends GameObject {
             }
 
         }else if(this.targetY != this.y){
+
+            Log.i("player","tartgetRealY"+Float.toString(targetRealY));
+            Log.i("player","realY"+Float.toString(realY));
+
             if(this.targetRealY > this.realY){
+
+                Log.i("player"," DOWN ");
+
                 updateRow(this.SPRITE_DOWN);
 
                 this.realY +=this.targetStep;
@@ -179,6 +189,8 @@ public class Player extends GameObject {
                     this.y=this.targetY;
                 }
             }else{
+                Log.i("player"," UP ");
+
                 updateRow(this.SPRITE_UP);
 
                 this.realY -=this.targetStep;

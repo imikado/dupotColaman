@@ -88,6 +88,13 @@ public class ClientActivity extends AppCompatActivity {
                         }
                     });
                     GameSurface.executeMessageFromClient(oMessage);
+                } else if (oMessage.get(GamePlay.FIELD_ACTION).equals(GamePlay.ACTION_RESTARTGAME)) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            restartGame();
+                        }
+                    });
                 } else {
                     GameSurface.executeMessageFromClient(oMessage);
 
@@ -140,6 +147,12 @@ public class ClientActivity extends AppCompatActivity {
 
         oLogText.setText("Vous etes connecte, en attente du lancement de la partie...");
 
+    }
+
+    public void restartGame() {
+
+        Intent oIntent = new Intent(this, GameActivity.class);
+        startActivity(oIntent);
     }
 
     public void launchGame() {

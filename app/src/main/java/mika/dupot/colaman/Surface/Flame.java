@@ -71,7 +71,7 @@ public class Flame extends GameObject {
         Bitmap bitmap = this.getCurrentMoveBitmap();
 
         int x2 = x * this.caseWidth;
-        int y2 = y * this.caseWidth;
+        int y2 = y * this.caseWidth - (this.caseWidth/2);
 
         canvas.drawBitmap(bitmap, new Rect(0, 0, spriteWidth, spriteWidth), new Rect(0 + x2, 0 + y2, this.caseWidth + x2, this.caseWidth + y2), null);
 

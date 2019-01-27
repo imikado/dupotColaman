@@ -27,7 +27,7 @@
         <activity android:name=".TitleActivity" android:screenOrientation="portrait" android:theme="@style/Theme.Design.NoActionBar"></activity>
 
 
-        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" android:theme="@style/Theme.Design.NoActionBar">
 
         </activity>
 
@@ -42,8 +42,11 @@
         </activity>
 
         <activity android:name=".ClientActivity" android:screenOrientation="portrait">
-
-
         </activity>
+
+        <activity android:name=".GameOverActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".GameOverServerActivity" android:screenOrientation="portrait"></activity>
+
+
     </application>
 </manifest>
