@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="splashscreenOrange">#ee5f00</color>
     <color name="titleBackground">#46CBC0</color>
+    <color name="gameoverBackground">#BD0009</color>
 </resources>

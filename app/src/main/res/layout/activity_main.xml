@@ -10,42 +10,33 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="272dp"
-        android:layout_height="221dp"
+        android:layout_width="436dp"
+        android:layout_height="419dp"
         android:layout_gravity="center_horizontal"
         app:srcCompat="@drawable/title" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/gameoverBackground"
         android:onClick="gotoServer"
         android:text="Heberger une partie" />
-
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/gameoverBackground"
         android:onClick="gotoClient"
         android:text="Rejoindre une partie" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="textEnd" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="TextView"
         android:textAlignment="viewEnd" />
 </LinearLayout>

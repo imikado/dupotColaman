@@ -25,7 +25,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="Start server" />
+        android:background="@color/gameoverBackground"
+        android:text="Start server"
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/btnConnect"
@@ -33,7 +35,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
+        android:background="@color/gameoverBackground"
         android:text="Se connecter"
+        android:textColor="@android:color/white"
         android:visibility="invisible" />
 
     <Button
@@ -43,7 +47,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
+        android:background="@color/gameoverBackground"
         android:text="Start Game"
+        android:textColor="@android:color/white"
         android:visibility="invisible" />
 
     <EditText
