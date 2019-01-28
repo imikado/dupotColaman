@@ -93,6 +93,16 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback ,
 
     public GameActivity oGameActivity;
 
+    private Score oScoreRed;
+    private Score oScoreBlue;
+    private Score oScoreGreen;
+    private Score oScoreYellow;
+
+    public static String sScoreRed="0";
+    public static String sScoreBlue="0";
+    public static String sScoreGreen="0";
+    public static String sScoreYellow="0";
+
 
     public GameSurface(Context context) {
         super(context);
@@ -391,6 +401,16 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback ,
                 GameSurface .oInstance.oGameActivity.goGameOverServer();
             }
 
+        }else if(actionMessage.equals(GamePlay.ACTION_SETSCORE)){
+            if(oMessage_.get(GamePlay.FIELD_USER).equals("red")){
+                sScoreRed=oMessage_.get(GamePlay.FIELD_SCORE);
+            }else  if(oMessage_.get(GamePlay.FIELD_USER).equals("blue")){
+                sScoreBlue=oMessage_.get(GamePlay.FIELD_SCORE);
+            }else  if(oMessage_.get(GamePlay.FIELD_USER).equals("green")){
+                sScoreGreen=oMessage_.get(GamePlay.FIELD_SCORE);
+            }else  if(oMessage_.get(GamePlay.FIELD_USER).equals("yellow")){
+                sScoreYellow=oMessage_.get(GamePlay.FIELD_SCORE);
+            }
         }
 
 
@@ -449,6 +469,16 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback ,
 
 
             }
+
+
+            //score
+            oScoreRed.drawCoord(canvas,0,17,sScoreRed);
+
+            oScoreBlue.drawCoord(canvas,2,17,sScoreBlue);
+
+            oScoreGreen.drawCoord(canvas,4,17,sScoreGreen);
+
+            oScoreYellow.drawCoord(canvas,6,17,sScoreYellow);
 
         /*
 
@@ -546,6 +576,16 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback ,
         Bitmap persoBlueBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.persoblue);
         Bitmap persoGreenBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.persogreen);
         Bitmap persoYellowBitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.persoyellow);
+
+        Bitmap scoreRedBitmap= BitmapFactory.decodeResource(this.getResources(),R.drawable.scorered);
+        Bitmap scoreBlueBitmap= BitmapFactory.decodeResource(this.getResources(),R.drawable.scoreblue);
+        Bitmap scoreGreenBitmap= BitmapFactory.decodeResource(this.getResources(),R.drawable.scoregreen);
+        Bitmap scoreYellowBitmap= BitmapFactory.decodeResource(this.getResources(),R.drawable.scoreyellow);
+
+        oScoreRed=new Score(scoreRedBitmap,getWidth(),scaledDensity);
+        oScoreBlue=new Score(scoreBlueBitmap,getWidth(),scaledDensity);
+        oScoreGreen=new Score(scoreGreenBitmap,getWidth(),scaledDensity);
+        oScoreYellow=new Score(scoreYellowBitmap,getWidth(),scaledDensity);
 
         tBomb = new ArrayList<Bomb>();
         tFlame = new HashMap<String, Flame>();

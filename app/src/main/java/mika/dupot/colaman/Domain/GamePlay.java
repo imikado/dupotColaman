@@ -75,6 +75,8 @@ public class GamePlay {
     private ArrayList<Player> tPlayer = new ArrayList<Player>();
     private ArrayList<Flame> tFlame = new ArrayList<Flame>();
 
+    private ArrayMap<String,Integer> tScore=new ArrayMap<String,Integer>();
+
     private String userServer="";
 
     public static GamePlay oGamePlay;
@@ -104,12 +106,16 @@ public class GamePlay {
     public static final String ACTION_DRAWUSER = "drawUser";
     public static final String ACTION_REMOVEWALLBREAKABLE = "removeWallBreakable";
 
+    public static final String ACTION_SETSCORE="setScore";
+
     public static final String FIELD_STATUS = "status";
     public static final String FIELD_ACTION = "action";
     public static final String FIELD_X = "x";
     public static final String FIELD_Y = "y";
     public static final String FIELD_LENGTH = "length";
     public static final String FIELD_USER = "user";
+
+    public static final String FIELD_SCORE="score";
 
     public static final String STATUS_OK = "ok";
     public static final String STATUS_KO = "ko";
@@ -122,6 +128,10 @@ public class GamePlay {
 
 
     public GamePlay() {
+
+        for(int iUser=0;iUser<listUser.length;iUser++) {
+            tScore.put(listUser[iUser], 0);
+        }
 
         resetGame();
     }
@@ -579,7 +589,11 @@ public class GamePlay {
 
                 if (oPlayerKilled != null && oPlayerKilled.isAlive()) {
                     Log.i("GamePlay","player killed");
-                    playerKillPlayer(tFlame.get(i).getUser(), userFindHere);
+
+                    String playerWhoKill=tFlame.get(i).getUser();
+                    playerKillPlayer(playerWhoKill, userFindHere);
+
+                    tMessage.add(encodeMessage(getAnswerSetScore(playerWhoKill)));
 
                     tMessage.add(encodeMessage(oPlayerKilled.getAnswerKilled()));
 
@@ -621,6 +635,23 @@ public class GamePlay {
 
             return tMessage;
         }
+
+    }
+
+    private Hashtable<String, String> getAnswerSetScore(String playerWhoKill) {
+
+        int newScore=tScore.get(playerWhoKill);
+        newScore+=1;
+        tScore.put(playerWhoKill,newScore);
+
+        Hashtable<String,String> oAnswer=new Hashtable<String,String>();
+        oAnswer.put(FIELD_STATUS,STATUS_OK);
+        oAnswer.put(FIELD_ACTION,ACTION_SETSCORE);
+
+        oAnswer.put(FIELD_USER,playerWhoKill);
+        oAnswer.put(FIELD_SCORE,Integer.toString(newScore));
+
+        return oAnswer;
 
     }
 
